@@ -2,9 +2,10 @@
 
 a simple logger implementation, without dependencies...
 
-## Git Hub
+## Links
 
-- [koakh/koakh-node-module-typescript-simple-logger](https://github.com/koakh/koakh-node-module-typescript-simple-logger)
+- [GitHub](https://github.com/koakh/koakh-node-module-typescript-simple-logger)
+- [NPM](https://www.npmjs.com/package/@koakh/typescript-simple-logger)
 
 ## Usage
 
