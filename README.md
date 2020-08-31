@@ -4,7 +4,7 @@ a simple logger implementation, without dependencies...
 
 ## Links
 
-- [GitHub](https://github.com/koakh/koakh-node-module-typescript-simple-logger)
+- [GitHub](https://github.com/koakh/KoakhNodeModuleTypescriptSimpleLogger)
 - [NPM](https://www.npmjs.com/package/@koakh/typescript-simple-logger)
 
 ## Usage
