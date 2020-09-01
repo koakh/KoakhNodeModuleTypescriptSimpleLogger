@@ -14,7 +14,7 @@ we must have package outside of `TypeScriptNodeExpressStarterSimplified` folder 
 ```json
 {
   // use npm package
-  // "@koakh/typescript-simple-logger": "^1.0.70",
+  // "@koakh/typescript-simple-logger": "^1.1.3",
   // use local node module (development)
   "@koakh/typescript-simple-logger": "file:local-modules/@koakh/typescript-simple-logger",
 }
