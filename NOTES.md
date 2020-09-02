@@ -1,14 +1,38 @@
 # NOTES
 
-## Develop Local Modules
+## Notes
 
-- [koakh/koakh-node-module-typescript-simple-logger](https://github.com/koakh/koakh-node-module-typescript-simple-logger)
+> when we develop in `local-modules` folder, ex in `TypeScriptNodeExpressStarterSimplified/local-modules/@koakh/typescript-simple-logger` project
+we must have package outside of `TypeScriptNodeExpressStarterSimplified` folder ex in `/home/mario/Development/@Koakh/packages/@koakh/typescript-simple-logger` folder to prevent compilation problems when use use `tsc`
 
-absolute location of module `/home/mario/Development/@Koakh/packages/@koakh/typescript-simple-logger`
-Develop module in `@SimpleProjectsAndStarters/TypeScript/TypeScriptNodeExpressStarterSimplified/local-modules/@koakh/typescript-simple-logger`
-above is a symbolic link to **absolute location of module**
+> to use it in `TypeScriptNodeExpressStarterSimplified` folder add a symbolic link to module folder and add it to `package.json` with `"@koakh/typescript-simple-logger": "file:local-modules/@koakh/typescript-simple-logger"`
+
+> when change something in module don't forget to build it with `npm run pck:typescript-simple-logger:build`
+
+## Use in package.json
+
+```json
+{
+  // use npm package
+  // "@koakh/typescript-simple-logger": "^1.1.3",
+  // use local node module (development)
+  "@koakh/typescript-simple-logger": "file:local-modules/@koakh/typescript-simple-logger",
+}
+```
+
+## Build and Publish
 
 ```shell
-$ mkdir local-modules/@koakh/ && cd local-modules/@koakh/
-$ ln -s /media/mario/Storage/Documents/Development/Node/@SimpleProjectsAndStarters/TypeScript/TypeScriptNodeExpressStarterSimplified/local-modules/@koakh/typescript-simple-logger
+# first login to npm registry
+$ npm login
+
+# enter path
+$ cd local-modules/@koakh/typescript-simple-logger
+
+# build
+$ npm run build
+# patch (update readme and bump version)
+$ npm run patch
+# publish
+$ npm run publish
 ```
