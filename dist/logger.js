@@ -51,9 +51,10 @@ exports.ConsoleTextColor = {
     }
 };
 class Logger {
-    constructor(logLevel, filePath) {
+    constructor(logLevel, filePath, color = false) {
         this.logLevel = logLevel;
         this.filePath = filePath;
+        this.color = color;
         /**
          * main logFunction shortcut
          */
@@ -94,7 +95,9 @@ class Logger {
             const printMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
             const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${printMessage}`;
             // colorized
-            const logMessageColor = `${textColor} ${logMessage} ${exports.ConsoleTextColor.Reset} `;
+            const logMessageColor = this.color
+                ? `${textColor} ${logMessage} ${exports.ConsoleTextColor.Reset} `
+                : logMessage;
             if (consoleLog) {
                 console.log(logMessageColor);
             }
