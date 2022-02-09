@@ -98,11 +98,14 @@ class Logger {
             const objectMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
             let stripMessage;
             // if is array loop all items and stripeAnsi
-            if (Array.isArray(objectMessage)) {
+            if (typeof objectMessage === 'object') {
+                stripMessage = objectMessage;
+            }
+            else if (Array.isArray(objectMessage)) {
                 stripMessage = objectMessage.map((e) => this.stripAnsi(e));
             }
             else {
-                stripMessage = objectMessage;
+                stripMessage = this.stripAnsi(message);
             }
             // always strip ansi colors
             const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${stripMessage}`;
