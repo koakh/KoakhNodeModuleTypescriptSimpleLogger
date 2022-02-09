@@ -100,10 +100,17 @@ export class Logger {
   private logFunction = (filePath: string, logLevel: LogLevel, message: string | object, textColor: string = undefined, consoleLog: boolean = true) => {
     // if textColor is not defined use default colors
     if (!textColor) { textColor = logLevelColor[logLevel]; };
-    // if object convert object to sting text
-    const printMessage: string = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+    // if object convert object to string text
+    const objectMessage: string = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+    let stripMessage: String | String[];
+    // if is array loop all items and stripeAnsi
+    if (Array.isArray(objectMessage)) {
+      stripMessage = objectMessage.map((e) => this.stripAnsi(e));
+    } else{
+      stripMessage = objectMessage;
+    }
     // always strip ansi colors
-    const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${this.stripAnsi(printMessage)}`;
+    const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${stripMessage}`;
     if (consoleLog) {
       // useColor
       if (this.useColor) {
