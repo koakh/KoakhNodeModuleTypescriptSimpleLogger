@@ -101,13 +101,16 @@ export class Logger {
     // if textColor is not defined use default colors
     if (!textColor) { textColor = logLevelColor[logLevel]; };
     // if object convert object to string text
-    const objectMessage: string = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+    const objectMessage: string | object = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
     let stripMessage: String | String[];
     // if is array loop all items and stripeAnsi
-    if (Array.isArray(objectMessage)) {
-      stripMessage = objectMessage.map((e) => this.stripAnsi(e));
-    } else{
+
+    if (typeof objectMessage === 'object') {
       stripMessage = objectMessage;
+    } else if (Array.isArray(objectMessage)) {
+      stripMessage = objectMessage.map((e) => this.stripAnsi(e));
+    } else {
+      stripMessage = this.stripAnsi(message as string);
     }
     // always strip ansi colors
     const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${stripMessage}`;
@@ -117,8 +120,8 @@ export class Logger {
         const logMessageColor: string = this.useColor
           ? `${textColor} ${logMessage} ${ConsoleTextColor.Reset} `
           : logMessage;
-          console.log(logMessageColor);
-      } 
+        console.log(logMessageColor);
+      }
       // useColor disabled
       else {
         console.log(logMessage);
