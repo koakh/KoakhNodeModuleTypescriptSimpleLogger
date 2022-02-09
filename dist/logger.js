@@ -51,10 +51,10 @@ exports.ConsoleTextColor = {
     }
 };
 class Logger {
-    constructor(logLevel, filePath, color = false) {
+    constructor(logLevel, filePath, useColor = false) {
         this.logLevel = logLevel;
         this.filePath = filePath;
-        this.color = color;
+        this.useColor = useColor;
         /**
          * main logFunction shortcut
          */
@@ -94,16 +94,30 @@ class Logger {
                 textColor = exports.logLevelColor[logLevel];
             }
             ;
-            // if object convert object to sting text
-            const printMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+            // if object convert object to string text
+            const objectMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+            let stripMessage;
+            // if is array loop all items and stripeAnsi
+            if (Array.isArray(objectMessage)) {
+                stripMessage = objectMessage.map((e) => this.stripAnsi(e));
+            }
+            else {
+                stripMessage = objectMessage;
+            }
             // always strip ansi colors
-            const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${this.stripAnsi(printMessage)}`;
-            // colorized
-            const logMessageColor = this.color
-                ? `${textColor} ${logMessage} ${exports.ConsoleTextColor.Reset} `
-                : logMessage;
+            const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${stripMessage}`;
             if (consoleLog) {
-                console.log(logMessageColor);
+                // useColor
+                if (this.useColor) {
+                    const logMessageColor = this.useColor
+                        ? `${textColor} ${logMessage} ${exports.ConsoleTextColor.Reset} `
+                        : logMessage;
+                    console.log(logMessageColor);
+                }
+                // useColor disabled
+                else {
+                    console.log(logMessage);
+                }
             }
             // append non colorized message
             fs_1.default.appendFileSync(filePath, `${logMessage} \n`);
