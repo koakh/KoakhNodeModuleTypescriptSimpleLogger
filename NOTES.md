@@ -44,10 +44,16 @@ $ npm run publish
 - [How to remove / replace ANSI color codes from a string in Javascript](https://stackoverflow.com/questions/7149601/how-to-remove-replace-ansi-color-codes-from-a-string-in-javascript/7150870)
 
 ```javascript
+$ node
+
 x = "\033[1mHello Bold World!\033[0m\n";
 // y = x.replace(/\033\[[0-9;]*m/,"").replace(/\033\[[0-9;]*m/,"");
 // with /g will replace all
 y = x.replace(/\033\[[0-9;]*m/g,"");
 print(x);
 Hello Bold World!\n
+
+x = "\u001b[0;1;31mfailed to set time zone: access denied\u001b[0m"
+y = x.replace(/\033\[[0-9;]*m/g,"");
+'failed to set time zone: access denied'
 ```

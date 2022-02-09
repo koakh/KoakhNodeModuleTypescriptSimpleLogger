@@ -53,7 +53,7 @@ export const ConsoleTextColor = {
 
 export class Logger {
 
-  public constructor(private logLevel: LogLevel, private filePath: string, private color: boolean = false) {
+  public constructor(private logLevel: LogLevel, private filePath: string, private useColor: boolean = false) {
     // init log with a new file
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
@@ -104,12 +104,18 @@ export class Logger {
     const printMessage: string = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
     // always strip ansi colors
     const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${this.stripAnsi(printMessage)}`;
-    // colorized
-    const logMessageColor: string = this.color
-      ? `${textColor} ${logMessage} ${ConsoleTextColor.Reset} `
-      : logMessage;
     if (consoleLog) {
-      console.log(logMessageColor);
+      // useColor
+      if (this.useColor) {
+        const logMessageColor: string = this.useColor
+          ? `${textColor} ${logMessage} ${ConsoleTextColor.Reset} `
+          : logMessage;
+          console.log(logMessageColor);
+      } 
+      // useColor disabled
+      else {
+        console.log(logMessage);
+      }
     }
     // append non colorized message
     fs.appendFileSync(filePath, `${logMessage} \n`);
