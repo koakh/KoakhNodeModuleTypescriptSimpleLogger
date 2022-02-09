@@ -95,14 +95,11 @@ class Logger {
             }
             ;
             // if object convert object to string text
-            const objectMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+            // const objectMessage: string | object = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
             let stripMessage;
-            // if is array loop all items and stripeAnsi
-            if (typeof objectMessage === 'object') {
-                stripMessage = objectMessage;
-            }
-            else if (Array.isArray(objectMessage)) {
-                stripMessage = objectMessage.map((e) => this.stripAnsi(e));
+            if (Array.isArray(message)) {
+                // if is array loop all items and stripeAnsi
+                stripMessage = message.map((e) => this.stripAnsi(e));
             }
             else {
                 stripMessage = this.stripAnsi(message);
