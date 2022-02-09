@@ -20,5 +20,8 @@
     "@types/node": "^13.1.7",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "strip-ansi": "^7.0.1"
   }
 }

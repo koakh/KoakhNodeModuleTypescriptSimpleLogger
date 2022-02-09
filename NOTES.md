@@ -36,3 +36,8 @@ $ npm run patch
 # publish
 $ npm run publish
 ```
+
+## ANSI Colors
+
+- [Remove all ANSI colors/styles from strings](https://stackoverflow.com/questions/25245716/remove-all-ansi-colors-styles-from-strings/29497680)
+- [GitHub - chalk/strip-ansi: Strip ANSI escape codes from a string](https://github.com/chalk/strip-ansi)

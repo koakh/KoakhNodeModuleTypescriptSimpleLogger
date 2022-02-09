@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logger = exports.ConsoleTextColor = exports.logLevelColor = exports.LogLevel = void 0;
 // tslint:disable: object-literal-sort-keys
 const fs_1 = __importDefault(require("fs"));
+const strip_ansi_1 = __importDefault(require("strip-ansi"));
 var LogLevel;
 (function (LogLevel) {
     LogLevel["INFO"] = "INFO";
@@ -93,7 +94,8 @@ class Logger {
             ;
             // if object convert object to sting text
             const printMessage = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
-            const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${printMessage}`;
+            // always strip ansi colors
+            const logMessage = `[${logLevel}] ${this.formatDate(new Date())} ${strip_ansi_1.default(printMessage)}`;
             // colorized
             const logMessageColor = this.color
                 ? `${textColor} ${logMessage} ${exports.ConsoleTextColor.Reset} `

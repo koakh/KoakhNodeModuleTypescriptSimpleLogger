@@ -1,5 +1,6 @@
 // tslint:disable: object-literal-sort-keys
 import fs from 'fs';
+import stripAnsi from 'strip-ansi';
 
 export enum LogLevel {
   INFO = 'INFO',
@@ -98,7 +99,8 @@ export class Logger {
     if (!textColor) { textColor = logLevelColor[logLevel]; };
     // if object convert object to sting text
     const printMessage: string = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
-    const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${printMessage}`;
+    // always strip ansi colors
+    const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${stripAnsi(printMessage)}`;
     // colorized
     const logMessageColor: string = this.color
       ? `${textColor} ${logMessage} ${ConsoleTextColor.Reset} `
