@@ -103,14 +103,11 @@ export class Logger {
     // if textColor is not defined use default colors
     if (!textColor) { textColor = logLevelColor[logLevel]; };
     // if object convert object to string text
-    const objectMessage: string | object = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
-    let stripMessage: String | String[];
-    // if is array loop all items and stripeAnsi
-
-    if (typeof objectMessage === 'object') {
-      stripMessage = objectMessage;
-    } else if (Array.isArray(objectMessage)) {
-      stripMessage = objectMessage.map((e) => this.stripAnsi(e));
+    // const objectMessage: string | object = (typeof message === 'object') ? JSON.stringify(message, undefined, 2) : message;
+    let stripMessage: String | String[] | object;
+    if (Array.isArray(message)) {
+      // if is array loop all items and stripeAnsi
+      stripMessage = message.map((e) => this.stripAnsi(e));
     } else {
       stripMessage = this.stripAnsi(message as string);
     }
