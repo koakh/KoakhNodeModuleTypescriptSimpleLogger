@@ -57,3 +57,8 @@ x = "\u001b[0;1;31mfailed to set time zone: access denied\u001b[0m"
 y = x.replace(/\033\[[0-9;]*m/g,"");
 'failed to set time zone: access denied'
 ```
+
+
+x = ["\u001b[0;1;31mfailed to set time zone: access denied 1\u001b[0m", "\u001b[0;1;31mfailed to set time zone: access denied 2\u001b[0m"]
+
+y = x.replace(/\033\[[0-9;]*m/g,"");

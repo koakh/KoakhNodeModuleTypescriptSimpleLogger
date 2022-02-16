@@ -83,7 +83,9 @@ class Logger {
                 : `${hh}:${mm}:${ss}`;
         };
         this.stripAnsi = (message) => {
-            return message.replace(/\033\[[0-9;]*m/g, '');
+            // in case of object, respond with `[Object]` to prevent `Converting circular structure to JSON`
+            const line = typeof message === 'string' ? message : '[Object]';
+            return line.replace(/\033\[[0-9;]*m/g, '');
         };
         /**
          * main logFunction
