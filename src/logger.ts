@@ -2,8 +2,8 @@
 import fs from 'fs';
 
 export enum LogLevel {
-  INFO = 'INFO',
   DEBUG = 'DEBUG',
+  INFO = 'INFO',
   WARN = 'WARN',
   ERROR = 'ERROR',
 }
@@ -13,8 +13,8 @@ export interface LogLevelColor {
 }
 
 export const logLevelColor: LogLevelColor = {
-  [LogLevel.INFO]: '\x1b[37m',
-  [LogLevel.DEBUG]: '\x1b[32m',
+  [LogLevel.DEBUG]: '\x1b[37m',
+  [LogLevel.INFO]: '\x1b[32m',
   [LogLevel.ERROR]: '\x1b[31m',
   [LogLevel.WARN]: '\x1b[33m',
 }
@@ -68,10 +68,10 @@ export class Logger {
       // error
       (this.logLevel === LogLevel.ERROR && (logLevel === LogLevel.ERROR)) ||
       (this.logLevel === LogLevel.WARN && (logLevel === LogLevel.WARN || logLevel === LogLevel.ERROR)) ||
-      (this.logLevel === LogLevel.DEBUG && (logLevel === LogLevel.DEBUG || logLevel === LogLevel.WARN || logLevel === LogLevel.ERROR)) ||
-      (this.logLevel === LogLevel.INFO)
+      (this.logLevel === LogLevel.INFO && (logLevel === LogLevel.INFO || logLevel === LogLevel.WARN || logLevel === LogLevel.ERROR)) ||
+      (this.logLevel === LogLevel.DEBUG)
     ) {
-      this.logFunction(this.filePath, logLevel, message);
+      this.logFunction(this.filePath, logLevel, `${message}`);
     }
   }
 
@@ -112,7 +112,7 @@ export class Logger {
       stripMessage = this.stripAnsi(message as string);
     }
     // always strip ansi colors
-    const logMessage: string = `[${logLevel}] ${this.formatDate(new Date())} ${stripMessage}`;
+    const logMessage: string = `[${logLevel.padStart(5)}] ${this.formatDate(new Date())} ${stripMessage}`;
     if (consoleLog) {
       // useColor
       if (this.useColor) {
