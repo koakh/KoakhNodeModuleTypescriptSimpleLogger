@@ -117,7 +117,7 @@ export class Logger {
       // useColor
       if (this.useColor) {
         const logMessageColor: string = this.useColor
-          ? `${textColor} ${logMessage} ${ConsoleTextColor.Reset} `
+          ? `${textColor}${logMessage} ${ConsoleTextColor.Reset} `
           : logMessage;
         console.log(logMessageColor);
       }
